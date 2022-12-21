@@ -1,3 +1,4 @@
+/* eslint-disable no-eval */
 import React, { Component } from 'react'
 import './Calculator.css'
 
@@ -28,25 +29,30 @@ export default class Calculator extends Component {
     }
 
     setOperation(operation){
-        if (this.state.current === 0){
+        const equals = operation === '='
+        if (this.state.current === 0 && !equals){
             this.setState({ operation, current: 1, clearDisplay: true})
         } else {
-            const equals = operation === '='
             const currentOperation = this.state.operation
 
             const values = [...this.state.values]
+            if (values[1] === 0 && this.state.displayValue !== '0') {
+                values[1] = values[0]
+            }
             try {
                 values[0] = eval(`${values[0]} ${currentOperation} ${values[1]}`)
             } catch (e) {
                 values[0] = this.state.values[0]
             }
-            values[1] = 0
+            if (!equals) {
+                values[1] = 0
+            }
 
             this.setState({
-                displayValue: values[0],
-                operation: equals ? null : operation,
+                displayValue: values[0].toString(),
+                operation: equals ? currentOperation : operation,
                 current: equals ? 0 : 1,
-                clearDisplay: !equals,
+                clearDisplay: true,
                 values
             })
         }
@@ -68,7 +74,6 @@ export default class Calculator extends Component {
             const values = [...this.state.values]
             values[i] = newValue
             this.setState({values})
-            console.log(values)
         }
     }
 

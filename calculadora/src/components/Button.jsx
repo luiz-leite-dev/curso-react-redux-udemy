@@ -11,7 +11,7 @@ export default props => {
     <button
         onClick={e => props.click && props.click(props.label)}
         className={classes}>
-        {props.label}
+        <strong>{props.label}</strong>
     </button>
     )
 }
