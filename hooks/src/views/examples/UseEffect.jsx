@@ -13,12 +13,11 @@ function calcFatorial(num){
 const UseEffect = (props) => {
     const [number, setNumber] = useState(1)
     const [fatorial, setFatorial] = useState(1)
-
-    const [evenOrOdd, setEvenOrOdd] = useState("-")
-    const [value, setValue] = useState(0)
+    const [evenOrOdd, setEvenOrOdd] = useState("Ímpar")
 
     useEffect(function() {
         setFatorial(calcFatorial(number))
+        setEvenOrOdd(number % 2 === 0 ? 'Par' : 'Ímpar')
     }, [number])
 
     useEffect(function(){
@@ -26,10 +25,6 @@ const UseEffect = (props) => {
             document.title = "Eita!!!"
         }
     }, [fatorial])
-
-    useEffect(function(){
-        setEvenOrOdd(value % 2 === 0 ? 'Par' : 'Ímpar')
-    }, [value])
 
     return (
         <div className="UseEffect">
@@ -54,15 +49,8 @@ const UseEffect = (props) => {
             {/* 2 spans label e valor + input */}
             <div className="center">
                 <div>
-                    <span className="text">O número é: </span>
                     <span className="text red">{evenOrOdd}</span>
                 </div>
-                <input 
-                    type="number" 
-                    className="input" 
-                    value={value} 
-                    onChange={e => setValue(e.target.value)}
-                />
             </div>
         </div>
     )
