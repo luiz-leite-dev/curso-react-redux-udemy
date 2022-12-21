@@ -11,13 +11,12 @@ function calcFatorial(num){
 }
 
 const UseEffect = (props) => {
+    //Ex #01
     const [number, setNumber] = useState(1)
     const [fatorial, setFatorial] = useState(1)
-    const [evenOrOdd, setEvenOrOdd] = useState("Ímpar")
 
     useEffect(function() {
         setFatorial(calcFatorial(number))
-        setEvenOrOdd(number % 2 === 0 ? 'Par' : 'Ímpar')
     }, [number])
 
     useEffect(function(){
@@ -25,6 +24,13 @@ const UseEffect = (props) => {
             document.title = "Eita!!!"
         }
     }, [fatorial])
+
+    //Ex #02
+    const [status, setStatus] = useState("Ímpar")
+
+    useEffect(function() {
+        setStatus(number % 2 === 0 ? 'Par' : 'Ímpar')
+    }, [number])
 
     return (
         <div className="UseEffect">
@@ -49,7 +55,8 @@ const UseEffect = (props) => {
             {/* 2 spans label e valor + input */}
             <div className="center">
                 <div>
-                    <span className="text red">{evenOrOdd}</span>
+                    <span className="text">Status: </span>
+                    <span className="text red">{status}</span>
                 </div>
             </div>
         </div>
