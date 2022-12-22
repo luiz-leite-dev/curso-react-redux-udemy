@@ -3,36 +3,24 @@ import { useEffect } from 'react'
 import PageTitle from '../../components/layout/PageTitle'
 import SectionTitle from '../../components/layout/SectionTitle'
 
+const merge = (s1, s2) => [...s1].map((e, i) => `${e}${s2[i] || ""}`).join("")
+
 const UseRef = (props) => {
     const [value1, setValue1] = useState("")
     const [value2, setValue2] = useState("")
-    const [valueMerged, setValueMerged] = useState("")
 
     const count = useRef(0)
     const myInput1 = useRef(null)
     const myInput2 = useRef(null)
 
-    function mergeValues() {
-        let mergedValue = "";
-        for (let i = 0; i < value1.length; i++) {
-            mergedValue += value1[i]
-            if (value2.length > i) {
-                mergedValue += value2[i]     
-            }       
-        }
-        setValueMerged(mergedValue)
-    }
-
     useEffect(function(){
         count.current++
         myInput2.current.focus()
-        mergeValues()
     }, [value1])
     
     useEffect(function(){
         count.current++
         myInput1.current.focus()
-        mergeValues()
     }, [value2])
 
     return (
@@ -46,7 +34,7 @@ const UseRef = (props) => {
             <div className="center">
                 <div>
                     <span className="text">Valor Unificado:</span>
-                    <span className="text">{valueMerged} [</span>
+                    <span className="text">{merge(value1,value2)} [</span>
                     <span className="text red">{count.current}</span>
                     <span className="text">]</span>
                 </div>
