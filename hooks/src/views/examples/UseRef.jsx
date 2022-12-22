@@ -13,13 +13,11 @@ const UseRef = (props) => {
     const myInput2 = useRef(null)
 
     function mergeValues() {
-        const stringMaxLength = value1.length > value2.length ? value1 : value2;
-        const stringMinLength = value1.length > value2.length ? value2 : value1;
         let mergedValue = "";
-        for (let i = 0; i < stringMaxLength.length; i++) {
-            mergedValue += stringMaxLength[i]
-            if (stringMinLength.length > i) {
-                mergedValue += stringMinLength[i]     
+        for (let i = 0; i < value1.length; i++) {
+            mergedValue += value1[i]
+            if (value2.length > i) {
+                mergedValue += value2[i]     
             }       
         }
         setValueMerged(mergedValue)
